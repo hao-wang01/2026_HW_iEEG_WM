@@ -38,11 +38,9 @@ contrast <- contrast(emm,
                          by = "one_year_outcome", 
                          adjust = "none") %>% as.data.frame()
 
-
 #### Contrast between outcomes ####
 emm_outcome <- emmeans(model, ~ one_year_outcome, lmerTest.limit = 443344)
 contrast(emm_outcome, "pairwise")
-
 
 #### Annotations for plot ####
 contrast <- contrast %>%
@@ -52,7 +50,6 @@ contrast <- contrast %>%
     p.value < 0.05  ~ "*",
     TRUE            ~ "n.s."
   ))
-
 
 annotations_good <- c(
   contrast$stars[which(contrast$one_year_outcome == "good" &
@@ -116,4 +113,3 @@ ggplot(emm_df, aes(x = group, y = emmean, fill = group)) +
               tip_length = 0.02,
               textsize = 5,
               fontface = "bold")
-
