@@ -100,7 +100,6 @@ ggplot(emm_df, aes(x = group, y = prob, fill = group)) +
         plot.title = element_text(size = 14, face = "bold", hjust = 0.5),
         panel.grid = element_blank(),
         panel.grid.major.y = element_line(color = "grey95"),
-        #panel.grid.minor.y = element_line(color = "grey95"),
         legend.position = "none") +
   
   # bad outcome annotations
