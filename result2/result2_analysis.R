@@ -53,20 +53,20 @@ contrast <- contrast %>%
 
 annotations_good <- c(
   contrast$stars[which(contrast$one_year_outcome == "good" &
-                         contrast$contrast == "Involved - Not Involved")],
+                         contrast$contrast == "Not Involved - Involved")],
   contrast$stars[which(contrast$one_year_outcome == "good" &
-                         contrast$contrast == "Involved - Not Implanted")],
+                         contrast$contrast == "Not Implanted - Involved")],
   contrast$stars[which(contrast$one_year_outcome == "good" &
                          contrast$contrast == "Not Implanted - Not Involved")]
 )
 
 annotations_bad <- c(
   contrast$stars[which(contrast$one_year_outcome == "bad" &
-                         contrast$contrast == "Involved - Not Involved")],
+                         contrast$contrast == "Not Involved - Involved")],
   contrast$stars[which(contrast$one_year_outcome == "bad" &
                           contrast$contrast == "Involved - Not Implanted")],
   contrast$stars[which(contrast$one_year_outcome == "bad" &
-                         contrast$contrast == "Not Implanted - Not Involved")]
+                         contrast$contrast == "Not Involved - Not Implanted")]
 )
 
 y_bad  <- c(1.5, 1.6, 1.7)
