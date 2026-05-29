@@ -6,7 +6,7 @@ library(ggplot2)
 library(ggsignif)
 
 #### Load data ####
-all_connections <- read.csv("/Users/hao/Desktop/PhD_1/github/result1/present_structural_connections_scale250.csv")
+all_connections <- read.csv("present_structural_connections_scale250.csv")
 
 # Factor and relevel for model (not implanted as intercept)
 all_connections$group <- factor(all_connections$group,
