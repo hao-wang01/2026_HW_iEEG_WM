@@ -12,7 +12,6 @@ all_connections <- read.csv("result1/present_structural_connections_scale250.csv
 all_connections$group <- factor(all_connections$group,
                                 levels = c("Not Implanted", "Not Involved", "Involved"))
 
-
 #### Logistic regression model ####
 model <- glm(
   gm_or_wm_connected ~ group * one_year_outcome,
@@ -33,7 +32,6 @@ emm_df$one_year_outcome <- factor(emm_df$one_year_outcome,
                                           levels = c("good","bad"),
                                           labels = c("Good 1-Year Post-Surgical Outcome",
                                                      "Bad 1-Year Post-Surgical Outcome"))
-
 
 #### Pairwise contrasts within each outcome ####
 contrast <- contrast(
@@ -57,7 +55,6 @@ contrast <- contrast %>%
       TRUE            ~ "n.s."
     )
   )
-
 
 annotations_good <- c(
   contrast$stars[which(contrast$one_year_outcome == "good" &
