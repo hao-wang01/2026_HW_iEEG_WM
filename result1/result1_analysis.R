@@ -87,7 +87,6 @@ comparisons_list <- list(
 )
 
 #### Bar Plot ####
-
 ggplot(emm_df, aes(x = group, y = prob, fill = group)) +
   geom_bar(stat = "identity", color = "black", size = 0.4, width = 0.6) +
   geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2) +
