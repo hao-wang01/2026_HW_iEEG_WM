@@ -89,7 +89,7 @@ ggplot(emm_df, aes(x = group, y = prob, fill = group)) +
   geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), width = 0.2) +
   facet_wrap(~ one_year_outcome) +
   labs(x = "Connection Between",
-       y = "Probability of Structural Connectivity") +
+       y = "Probability of Structural Connection") +
   scale_fill_manual(values = c("#0076c0", "#a30234", "#67771a")) +
   theme_bw() +
   theme(axis.text.x = element_text(size = 10, face = "bold"),
