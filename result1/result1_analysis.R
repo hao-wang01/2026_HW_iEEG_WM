@@ -4,6 +4,7 @@ library(lme4)
 library(emmeans)
 library(ggplot2)
 library(ggsignif)
+library(sandwich)
 
 #### Load data ####
 all_connections <- read.csv("result1/present_structural_connections_scale250.csv")
@@ -20,8 +21,12 @@ model <- glm(
 )
 summary(model) # model summary
 
+#### Patient-clustered standard errors ####
+# because rows repeat across seizure states and connections within a patient are correlated
+V_cl <- vcovCL(model, cluster = ~ ID)
+
 #### Estimated marginal means (predicted probabilities) ####
-emm_results_outcome <- emmeans(model, ~ group | one_year_outcome, type = "response")
+emm_results_outcome <- emmeans(model, ~ group | one_year_outcome, type = "response", vcov. = V_cl)
 emm_df <- as.data.frame(emm_results_outcome)
 
 # Convert to factors, relabel & relevel
@@ -38,12 +43,12 @@ contrast <- contrast(
   emm_results_outcome,
   method = "pairwise",
   by = "one_year_outcome",
-  adjust = "none"
+  adjust = "tukey"
 ) %>% as.data.frame()
 
 #### Contrast between outcomes ####
-emm_outcome <- emmeans(model, ~ one_year_outcome)
-contrast(emm_outcome, "pairwise")
+emm_outcome <- emmeans(model, ~ one_year_outcome, vcov. = V_cl)
+contrast(emm_outcome, "pairwise", type = "response") # odds ratio between outcome groups
 
 #### Annotations for plot ####
 contrast <- contrast %>%
