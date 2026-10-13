@@ -20,6 +20,13 @@ cat("Wilcoxon p (Involved):      ", wilcox_involved$p.value/2, "\n")
 cat("Wilcoxon p (Not Implanted): ", wilcox_not_implanted$p.value/2, "\n")
 cat("Wilcoxon p (Not Involved):  ", wilcox_not_involved$p.value/2, "\n")
 
+# Holm adjustment across three connection categories
+p_one  <- c(Involved      = wilcox_involved$p.value / 2,
+            Not_Implanted = wilcox_not_implanted$p.value / 2,
+            Not_Involved  = wilcox_not_involved$p.value / 2)
+p_holm <- p.adjust(p_one, method = "holm")
+print(round(p_holm, 3))
+
 #### Calculate AUC from mean z-scores ####
 roc_a_full <- roc(patient_summary$one_year_outcome, patient_summary$involved)
 roc_b_full <- roc(patient_summary$one_year_outcome, patient_summary$not_implanted)
@@ -33,9 +40,11 @@ cat("AUC (Not Involved):  ", auc(roc_c_full), "\n")
 data.frame(
   Model = c("Involved", "Not Implanted", "Not Involved"),
   AUC = c(auc(roc_a_full), auc(roc_b_full), auc(roc_c_full)),
-  Wilcoxon_p = c(wilcox_involved$p.value/2, wilcox_not_implanted$p.value/2, wilcox_not_involved$p.value/2)
-) %>% mutate(across(c(AUC), ~round(., 3)),
-             Wilcoxon_p = round(Wilcoxon_p, 4))
+  Wilcoxon_p = p_one,
+  Wilcoxon_p_holm = p_holm
+) %>% mutate(AUC = round(AUC, 3),
+             Wilcoxon_p = round(Wilcoxon_p, 4),
+             Wilcoxon_p_holm = round(Wilcoxon_p_holm, 3))
 
 #### Violin plot setup : three predictors by outcome ####
 plot_data <- patient_summary %>%
