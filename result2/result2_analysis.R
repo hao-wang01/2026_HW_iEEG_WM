@@ -36,7 +36,7 @@ emm_df$one_year_outcome <- factor(emm_df$one_year_outcome,
 contrast <- contrast(emm, 
                          method = "pairwise", 
                          by = "one_year_outcome", 
-                         adjust = "none") %>% as.data.frame()
+                         adjust = "tukey") %>% as.data.frame()
 
 #### Contrast between outcomes ####
 emm_outcome <- emmeans(model, ~ one_year_outcome, lmerTest.limit = 443344)
